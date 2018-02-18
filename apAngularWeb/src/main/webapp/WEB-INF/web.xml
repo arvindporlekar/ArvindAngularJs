@@ -1,0 +1,76 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	<display-name>Arvind Angular JS project</display-name>
+
+	<servlet>
+		<servlet-name>REST Services</servlet-name>
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.package</param-name>
+			<param-value>com.arvind.common;com.arvind.app.resource</param-value>
+		</init-param>
+		<!-- <init-param>
+			<param-name>com.sun.jersey.spi.contaner.ContainerRequestFilter</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.spi.contaner.ContainerResponseFilter</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.spi.container.ResourceFilter</param-name>
+			<param-value></param-value>
+		</init-param> -->
+		<init-param>
+			<param-name>com.sun.jersey.config.property.JSPTemplateBasePath</param-name>
+			<param-value>/secured/rest/*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.Trace</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>REST Services</servlet-name>
+		<url-pattern>/secured/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>REST Services</servlet-name>
+		<url-pattern>/secured/api/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>SpringRequestContextFilter</filter-name>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>filterLog</filter-name>
+		<filter-class></filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>SpringRequestContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+</web-app>
